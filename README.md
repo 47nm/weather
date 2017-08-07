@@ -6,7 +6,9 @@ steps:
 4. Edit src/main/resources/database/SqlMapConfig.xml and provice appropriate DB details.
 5. Build then Debug/Run on server.
 
-
+use: http://<hostname>:<port>/weather/rest/minmax
+	to access the min-mix temp of the day 
+	
 Features
 1. Provides min and maximum temperature of the day.
 2. It can provide array in sorted order for graphical view on UI.
