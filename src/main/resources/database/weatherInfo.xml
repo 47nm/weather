@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 
+
+create table weatherInfo (
+  city VARCHAR2(64) primary key,
+  curr_min float,
+  curr_max float,
+  curr_temp float,
+  curr_time timestamp unique
+);
+
+ -->
+<sqlMap namespace="WeatherInfo">
+
+	<resultMap id="WeatherInfoResultMap" class="com.lift.weather.MainTemperature">
+        <result property="current_min_temp" column="curr_min"/>
+        <result property="current_max_temp" column="curr_max"/>
+        <result property="current_temp" column="curr_temp"/>
+        <result property="current_time" column="curr_time"/>
+        
+    </resultMap>
+
+
+   <select id="getAllRecordsBetweenTwoDates" parameterClass="com.lift.weather.server.util.WeatherUtility$Temp1" resultMap="WeatherInfoResultMap">
+      SELECT * FROM weatherInfo where 
+      		curr_time between #fromToDate.fromDate# and #fromToDate.toDate# 
+	      	and city = #city.cityID#
+   </select>
+
+	<insert id="insertARecordInWeatherInfo" parameterClass="com.lift.weather.WeatherInfo">
+      INSERT INTO weatherInfo(city, curr_min, curr_max, curr_temp, curr_time)
+      values (#city.cityID#, #mTemp.current_min_temp#, #mTemp.current_max_temp#, #mTemp.current_temp#, #mTemp.current_time#)   
+    </insert>
+
+	
+</sqlMap>
